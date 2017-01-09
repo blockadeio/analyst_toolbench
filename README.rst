@@ -7,9 +7,6 @@ Blockade Analyst Bench
 .. image:: https://img.shields.io/pypi/v/blockade-toolkit.svg
    :target: https://pypi.python.org/pypi/blockade-toolkit
 
-.. image:: https://img.shields.io/badge/blockade-toolkit-2.7-blue.svg
-    :target: https://pypi.python.org/pypi/blockade-toolkit/
-
 .. image:: https://img.shields.io/pypi/l/blockade-toolkit.svg
     :target: https://pypi.python.org/pypi/blockade-toolkit/
 
