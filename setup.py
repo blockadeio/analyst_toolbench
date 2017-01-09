@@ -6,7 +6,7 @@ setup(
     name='blockade',
     version='1.0.0',
     description='Analyst client for administering Blockade.io',
-    url="https://github.com/blockadeio/chrome_extension",
+    url="https://github.com/blockadeio/analyst_toolbench",
     author="Brandon Dixon",
     author_email="info@blockade.io",
     license="GPLv2",
@@ -27,5 +27,5 @@ setup(
     include_package_data=True,
     zip_safe=False,
     keywords=['threats', 'research', 'analysis'],
-    download_url='https://github.com/blockadeio/chrome_extension/archive/master.zip'
+    download_url='https://github.com/blockadeio/analyst_toolbench/archive/master.zip'
 )
