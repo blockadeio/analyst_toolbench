@@ -3,7 +3,7 @@
 from setuptools import setup, find_packages
 
 setup(
-    name='blockade',
+    name='blockade-toolkit',
     version='1.0.0',
     description='Analyst client for administering Blockade.io',
     url="https://github.com/blockadeio/analyst_toolbench",
@@ -22,7 +22,7 @@ setup(
         ],
     },
     package_data={
-        'blockade': [],
+        'blockade-toolkit': [],
     },
     include_package_data=True,
     zip_safe=False,
