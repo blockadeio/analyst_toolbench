@@ -24,7 +24,9 @@ The following command line scripts are installed with the library:
   library (email and API key).
 - **blockade**: primary client to interface with the blockade backend services.
 
-See the *Usage* section for more information.
+See the *Usage* section for getting started or our wiki_ for more information.
+
+.. _wiki: https://github.com/blockadeio/analyst_toolbench/wiki
 
 Installation
 ------------
@@ -51,13 +53,6 @@ At any time, the current API configuration parameters can be queried using the s
     $ blockade-cfg show
 
 Configuration parameters are stored in **$HOME/.config/blockade/api_config.json**.
-
-Upgrades
---------
-
-Our libraries support Python 3 through futures. On certain platforms, this causes issues when doing upgrades of the library. When performing an update, use the following:
-
-    sudo pip install blockade --upgrade --ignore-installed six
 
 Usage
 -----
