@@ -52,6 +52,8 @@ def cache_items(values):
     import os
     config_path = os.path.expanduser('~/.config/blockade')
     file_path = os.path.join(config_path, 'cache.txt')
+    if not os.path.isfile(file_path):
+        file(file_path, 'w').close()
     written = [x.strip() for x in open(file_path, 'r').readlines()]
     handle = open(file_path, 'a')
     for item in values:
