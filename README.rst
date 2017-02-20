@@ -37,7 +37,7 @@ From the downloaded source distribution::
 
 Or from PyPI::
 
-    $ pip install blockade [--upgrade]
+    $ pip install blockade-toolkit [--upgrade]
 
 The package depends on the `requests`, `grequests` and `tldextract`. If these are not present, they will be installed.
 
