@@ -7,6 +7,7 @@ import sys
 import os.path
 from argparse import ArgumentParser
 from blockade.libs.indicators import IndicatorClient
+from blockade.libs.events import EventsClient
 
 
 def process_ioc(args):
@@ -23,6 +24,15 @@ def process_ioc(args):
     return response
 
 
+def process_events(args):
+    """Process actions related to events switch."""
+    client = EventsClient.from_config()
+    client.set_debug(True)
+    if args.get:
+        response = client.get_events()
+    return response
+
+
 def main():
     """Run the code."""
     parser = ArgumentParser(description="Blockade Analyst Bench")
@@ -31,6 +41,10 @@ def main():
     ioc = subs.add_parser('ioc', help="Perform actions with IOCs")
     ioc.add_argument('--single', '-s', help="Send a single IOC")
     ioc.add_argument('--file', '-f', help="Parse a file of IOCs")
+
+    events = subs.add_parser('events', help="Perform actions with Events")
+    events.add_argument('--get', '-g', action='store_true', help="Get recent events")
+
     args, unknown = parser.parse_known_args()
 
     try:
@@ -38,6 +52,8 @@ def main():
             if (args.single and args.file):
                 raise Exception("Can't use single and file together!")
             response = process_ioc(args)
+        elif args.cmd == 'events':
+            response = process_events(args)
         else:
             parser.print_usage()
             sys.exit(1)
