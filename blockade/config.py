@@ -67,7 +67,7 @@ class Config(object):
         if 'email' not in self.config:
             sys.stderr.write('configuration missing email\n')
         if not ('api_key' in self.config and 'email' in self.config):
-            sys.stderr.write('Errors have been reported. Run pt-config '
+            sys.stderr.write('Errors have been reported. Run blockade-cfg '
                              'to fix these warnings.\n')
         try:
             last_update = datetime.strptime(self.config['whitelist_date'],

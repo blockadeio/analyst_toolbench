@@ -4,9 +4,9 @@
 __author__ = 'Brandon Dixon'
 __version__ = '1.0.0'
 
-import math
-import time
+import json
 from blockade.api import Client
+
 
 class EventsClient(Client):
 
@@ -17,7 +17,9 @@ class EventsClient(Client):
         super(EventsClient, self).__init__(*args, **kwargs)
 
     def get_events(self):
+        """Get events from the cloud node."""
         to_send = {'limit': 50}
         response = self._send_data('GET', 'admin', 'get-events', to_send)
-        output = {'message': "Fetched events"}
+        loaded = json.loads(response.content)
+        output = {'events': loaded}
         return output

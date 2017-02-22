@@ -24,6 +24,8 @@ def main():
     setup_parser.add_argument('email', help="Email associated with the \
                                                 API key and account")
     setup_parser.add_argument('key', help='API key')
+    setup_parser.add_argument('--api-node', '--node', default='api.blockade.io',
+                              help='Node to store indicators')
     setup_parser.add_argument('--http-proxy', '--http', default='',
                               help='proxy to use for http requests')
     setup_parser.add_argument('--https-proxy', '--https', default='',
@@ -38,6 +40,7 @@ def main():
         config_options = {}
         config_options['api_key'] = args.key
         config_options['email'] = args.email
+        config_options['api_server'] = args.api_node
         config_options['http_proxy'] = args.http_proxy
         config_options['https_proxy'] = args.https_proxy
         config_options['whitelist_date'] = datetime.now().strftime('%Y-%m-%d')
