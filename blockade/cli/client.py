@@ -44,6 +44,7 @@ def main():
 
     events = subs.add_parser('events', help="Perform actions with Events")
     events.add_argument('--get', '-g', action='store_true', help="Get recent events")
+    events.add_argument('--flush', '-f', action='store_true', help="Flush all events from cloud node")
 
     args, unknown = parser.parse_known_args()
 
