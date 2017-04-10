@@ -52,8 +52,14 @@ def main():
         if args.cmd == 'ioc':
             if (args.single and args.file):
                 raise Exception("Can't use single and file together!")
+            if (not args.single and not args.file):
+                ioc.print_help()
+                sys.exit(1)
             response = process_ioc(args)
         elif args.cmd == 'events':
+            if (not args.get and not args.flush):
+                events.print_help()
+                sys.exit(1)
             response = process_events(args)
         else:
             parser.print_usage()
