@@ -61,3 +61,12 @@ class IndicatorClient(Client):
         msg += "{success} success, {failure} failure"
         stats['message'] = msg.format(**stats)
         return stats
+
+    def get_indicators(self):
+        """List indicators available on the remote instance"""
+        response = self._get('', 'get-indicators')
+        response['message'] = "%i indicators:\n%s" % (
+            len(response['indicators']),
+            "\n".join(response['indicators'])
+        )
+        return response
