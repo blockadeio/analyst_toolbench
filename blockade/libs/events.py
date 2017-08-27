@@ -34,7 +34,7 @@ class EventsClient(Client):
 
     def flush_events(self):
         """Flush events from the cloud node."""
-        response = self._send_data('DELETE', 'admin', 'flush-events')
+        response = self._send_data('DELETE', 'admin', 'flush-events', {})
 
         if response['success']:
             msg = "Events flushed"

@@ -32,6 +32,8 @@ def process_events(args):
     client.set_debug(True)
     if args.get:
         response = client.get_events()
+    elif args.flush:
+        response = client.flush_events()
     return response
 
 
