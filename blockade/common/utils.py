@@ -20,12 +20,19 @@ def clean_indicators(indicators):
 def hash_values(values, alg="md5"):
     """Hash a list of values."""
     import hashlib
-    output = list()
+
     if alg not in ['md5', 'sha1', 'sha256']:
         raise Exception("Invalid hashing algorithm!")
+
     hasher = getattr(hashlib, alg)
-    for item in values:
-        output.append(hasher(item).hexdigest())
+
+    if type(values) == str:
+        output = hasher(values).hexdigest()
+    elif type(values) == list:
+        output = list()
+        for item in values:
+            output.append(hasher(item).hexdigest())
+
     return output
 
 
@@ -57,7 +64,7 @@ def cache_items(values):
     written = [x.strip() for x in open(file_path, 'r').readlines()]
     handle = open(file_path, 'a')
     for item in values:
-        hashed = hashlib.md5(item).hexdigest()
+        hashed = hash_values(item)
         if hashed in written:
             continue
         handle.write(hashed + "\n")
@@ -75,7 +82,7 @@ def prune_cached(values):
     cached = [x.strip() for x in open(file_path, 'r').readlines()]
     output = list()
     for item in values:
-        hashed = hashlib.md5(item).hexdigest()
+        hashed = hash_values(item)
         if hashed in cached:
             continue
         output.append(item)
