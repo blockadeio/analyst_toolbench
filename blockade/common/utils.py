@@ -57,9 +57,10 @@ def cache_items(values):
     written = [x.strip() for x in open(file_path, 'r').readlines()]
     handle = open(file_path, 'a')
     for item in values:
-        if item in written:
+        hashed = hashlib.md5(item).hexdigest()
+        if hashed in written:
             continue
-        handle.write(item + "\n")
+        handle.write(hashed + "\n")
     handle.close()
     return True
 
@@ -74,7 +75,8 @@ def prune_cached(values):
     cached = [x.strip() for x in open(file_path, 'r').readlines()]
     output = list()
     for item in values:
-        if item in cached:
+        hashed = hashlib.md5(item).hexdigest()
+        if hashed in cached:
             continue
         output.append(item)
     return output
