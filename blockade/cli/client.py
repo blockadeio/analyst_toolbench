@@ -21,7 +21,15 @@ def process_ioc(args):
     else:
         if not os.path.isfile(args.file):
             raise Exception("File path isn't valid!")
-        indicators = [x.strip() for x in open(args.file, 'r').readlines()]
+
+        indicators = []
+        with open(args.file, 'r') as handle:
+            for line in handle:
+                line = line.strip()
+                if line == '':
+                    continue
+                indicators.append(line)
+
         response = client.add_indicators(indicators)
     return response
 
