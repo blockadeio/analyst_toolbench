@@ -48,7 +48,7 @@ class IndicatorClient(Client):
             indicators_to_submit = hashed
         # Otherwise, we send the IOCs in clear.
         else:
-            indicators_to_submit = indicators_to_submit
+            indicators_to_submit = indicators
 
         start, end = (0, 100)
         for i, idx in enumerate(range(0, request_count)):
