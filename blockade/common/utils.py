@@ -1,5 +1,6 @@
 """Common utilities shared across all libraries."""
 
+import re
 
 def clean_indicators(indicators):
     """Remove any extra details from indicators."""
@@ -16,16 +17,25 @@ def clean_indicators(indicators):
     output = list(set(output))
     return output
 
+def is_hashed(value):
+    return re.search(r"([a-fA-F\d]{32})", value)
 
 def hash_values(values, alg="md5"):
     """Hash a list of values."""
     import hashlib
-    output = list()
+
     if alg not in ['md5', 'sha1', 'sha256']:
         raise Exception("Invalid hashing algorithm!")
+
     hasher = getattr(hashlib, alg)
-    for item in values:
-        output.append(hasher(item).hexdigest())
+
+    if type(values) == str:
+        output = hasher(values).hexdigest()
+    elif type(values) == list:
+        output = list()
+        for item in values:
+            output.append(hasher(item).hexdigest())
+
     return output
 
 
@@ -57,9 +67,16 @@ def cache_items(values):
     written = [x.strip() for x in open(file_path, 'r').readlines()]
     handle = open(file_path, 'a')
     for item in values:
-        if item in written:
+        # Because of the option to submit in clear or hashed, we need to make
+        # sure we're not re-hashing before adding.
+        if is_hashed(item):
+            hashed = item
+        else:
+            hashed = hash_values(item)
+
+        if hashed in written:
             continue
-        handle.write(item + "\n")
+        handle.write(hashed + "\n")
     handle.close()
     return True
 
@@ -74,7 +91,8 @@ def prune_cached(values):
     cached = [x.strip() for x in open(file_path, 'r').readlines()]
     output = list()
     for item in values:
-        if item in cached:
+        hashed = hash_values(item)
+        if hashed in cached:
             continue
         output.append(item)
     return output
