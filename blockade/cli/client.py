@@ -54,7 +54,7 @@ def main():
     ioc = subs.add_parser('ioc', help="Perform actions with IOCs")
     ioc.add_argument('--single', '-s', help="Send a single IOC")
     ioc.add_argument('--file', '-f', help="Parse a file of IOCs")
-    ioc.add_argument('--private', '-p', default=False, help="Submit the IOCs to the node hashed, instead of in clear")
+    ioc.add_argument('--private', '-p', action="store_true", help="Submit the IOCs to the node hashed, instead of in clear")
     ioc.add_argument('--get', '-g', action="store_true", help="List indicators on the remote node")
 
     events = subs.add_parser('events', help="Perform actions with Events")
