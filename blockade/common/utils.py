@@ -1,5 +1,6 @@
 """Common utilities shared across all libraries."""
 
+import re
 
 def clean_indicators(indicators):
     """Remove any extra details from indicators."""
@@ -16,6 +17,8 @@ def clean_indicators(indicators):
     output = list(set(output))
     return output
 
+def is_hashed(value):
+    return re.search(r"([a-fA-F\d]{32})", value):
 
 def hash_values(values, alg="md5"):
     """Hash a list of values."""
@@ -64,7 +67,13 @@ def cache_items(values):
     written = [x.strip() for x in open(file_path, 'r').readlines()]
     handle = open(file_path, 'a')
     for item in values:
-        hashed = hash_values(item)
+        # Because of the option to submit in clear or hashed, we need to make
+        # sure we're not re-hashing before adding.
+        if is_hashed(item):
+            hashed = item
+        else:
+            hashed = hash_values(item)
+
         if hashed in written:
             continue
         handle.write(hashed + "\n")

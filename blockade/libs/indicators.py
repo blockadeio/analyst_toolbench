@@ -19,7 +19,7 @@ class IndicatorClient(Client):
         """Setup the primary client instance."""
         super(IndicatorClient, self).__init__(*args, **kwargs)
 
-    def add_indicators(self, indicators=list()):
+    def add_indicators(self, indicators=list(), private=False):
         """Add indicators to the remote instance."""
         if len(indicators) == 0:
             raise Exception("No indicators were identified.")
@@ -28,8 +28,8 @@ class IndicatorClient(Client):
         self.logger.debug("Cleaned {} indicators".format(len(cleaned)))
         whitelisted = check_whitelist(cleaned)
         self.logger.debug("Non-whitelisted {} indicators".format(len(whitelisted)))
-        # hashed = hash_values(whitelisted)
         indicators = prune_cached(whitelisted)
+        hashed = hash_values(indicators)
         self.logger.debug("Non-cached {} indicators".format(len(indicators)))
         self.logger.debug("Processing {} indicators".format(len(indicators)))
         request_count = int(math.ceil(len(indicators)/100.0))
@@ -42,12 +42,20 @@ class IndicatorClient(Client):
         mesg = "{} indicators found, making {} requests"
         self.logger.debug(mesg.format(len(indicators), request_count))
 
+        # If the user asked for IOCs to be submitted privately, we send only
+        # the hashed values.
+        if private:
+            indicators_to_submit = hashed
+        # Otherwise, we send the IOCs in clear.
+        else:
+            indicators_to_submit = indicators_to_submit
+
         start, end = (0, 100)
         for i, idx in enumerate(range(0, request_count)):
             if idx > 0:
                 time.sleep(3)  # Ensure we never trip the limit
                 self.logger.debug("Waiting 3 seconds before next request.")
-            to_send = {'indicators': indicators[start:end]}
+            to_send = {'indicators': indicators_to_submit[start:end]}
             r = self._send_data('POST', 'admin', 'add-indicators', to_send)
             start, end = (end, end + 100)
             if not r['success']:
@@ -55,6 +63,7 @@ class IndicatorClient(Client):
                 continue
             stats['success'] += 1
             stats['written'] += r['writeCount']
+            # Add items to cache, hashed or not.
             cache_items(to_send['indicators'])
         msg = ""
         msg += "{written} indicators written using {requests} requests: "

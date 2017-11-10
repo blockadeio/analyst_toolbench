@@ -14,10 +14,11 @@ def process_ioc(args):
     """Process actions related to the IOC switch."""
     client = IndicatorClient.from_config()
     client.set_debug(True)
+
     if args.get:
         response = client.get_indicators()
     elif args.single:
-        response = client.add_indicators([args.single])
+        response = client.add_indicators(indicators=[args.single], private=args.private)
     else:
         if not os.path.isfile(args.file):
             raise Exception("File path isn't valid!")
@@ -30,7 +31,7 @@ def process_ioc(args):
                     continue
                 indicators.append(line)
 
-        response = client.add_indicators(indicators)
+        response = client.add_indicators(indicators=indicators, private=args.private)
     return response
 
 
@@ -53,8 +54,8 @@ def main():
     ioc = subs.add_parser('ioc', help="Perform actions with IOCs")
     ioc.add_argument('--single', '-s', help="Send a single IOC")
     ioc.add_argument('--file', '-f', help="Parse a file of IOCs")
-    ioc.add_argument('--get', '-g', action="store_true",
-            help="List indicators on the remote node")
+    ioc.add_argument('--private', '-p', default=False, help="Submit the IOCs to the node hashed, instead of in clear")
+    ioc.add_argument('--get', '-g', action="store_true", help="List indicators on the remote node")
 
     events = subs.add_parser('events', help="Perform actions with Events")
     events.add_argument('--get', '-g', action='store_true', help="Get recent events")
