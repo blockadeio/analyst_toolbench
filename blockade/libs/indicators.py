@@ -19,7 +19,7 @@ class IndicatorClient(Client):
         """Setup the primary client instance."""
         super(IndicatorClient, self).__init__(*args, **kwargs)
 
-    def add_indicators(self, indicators=list(), private=False):
+    def add_indicators(self, indicators=list(), private=False, tags=""):
         """Add indicators to the remote instance."""
         if len(indicators) == 0:
             raise Exception("No indicators were identified.")
@@ -50,12 +50,17 @@ class IndicatorClient(Client):
         else:
             indicators_to_submit = indicators
 
+        # If the user provided some tags, we make sure to parse them.
+        if tags:
+            tags = [t.strip().lower() for t in tags.split(',')]
+
         start, end = (0, 100)
         for i, idx in enumerate(range(0, request_count)):
             if idx > 0:
                 time.sleep(3)  # Ensure we never trip the limit
                 self.logger.debug("Waiting 3 seconds before next request.")
-            to_send = {'indicators': indicators_to_submit[start:end]}
+            to_send = {'indicators': indicators_to_submit[start:end],
+                'tags': tags}
             r = self._send_data('POST', 'admin', 'add-indicators', to_send)
             start, end = (end, end + 100)
             if not r['success']:

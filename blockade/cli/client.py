@@ -18,7 +18,8 @@ def process_ioc(args):
     if args.get:
         response = client.get_indicators()
     elif args.single:
-        response = client.add_indicators(indicators=[args.single], private=args.private)
+        response = client.add_indicators(indicators=[args.single],
+            private=args.private, tags=args.tags)
     else:
         if not os.path.isfile(args.file):
             raise Exception("File path isn't valid!")
@@ -31,7 +32,9 @@ def process_ioc(args):
                     continue
                 indicators.append(line)
 
-        response = client.add_indicators(indicators=indicators, private=args.private)
+        response = client.add_indicators(indicators=indicators,
+            private=args.private, tags=args.tags)
+
     return response
 
 
@@ -55,6 +58,7 @@ def main():
     ioc.add_argument('--single', '-s', help="Send a single IOC")
     ioc.add_argument('--file', '-f', help="Parse a file of IOCs")
     ioc.add_argument('--private', '-p', action="store_true", help="Submit the IOCs to the node hashed, instead of in clear")
+    ioc.add_argument('--tags', '-t', help="Add a comma-separated list of tags to store with the indicators")
     ioc.add_argument('--get', '-g', action="store_true", help="List indicators on the remote node")
 
     events = subs.add_parser('events', help="Perform actions with Events")
