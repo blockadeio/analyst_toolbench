@@ -53,6 +53,8 @@ class IndicatorClient(Client):
         # If the user provided some tags, we make sure to parse them.
         if tags:
             tags = [t.strip().lower() for t in tags.split(',')]
+        else:
+            tags = []
 
         start, end = (0, 100)
         for i, idx in enumerate(range(0, request_count)):
