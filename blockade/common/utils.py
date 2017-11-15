@@ -18,7 +18,7 @@ def clean_indicators(indicators):
     return output
 
 def is_hashed(value):
-    return re.search(r"([a-fA-F\d]{32})", value)
+    return re.search(r"^([a-fA-F\d]{32})$", value)
 
 def hash_values(values, alg="md5"):
     """Hash a list of values."""
