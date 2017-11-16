@@ -1,10 +1,9 @@
 #!/usr/bin/env python
 """Events interface for blockade."""
 
-__author__ = 'Brandon Dixon'
+__author__ = 'Claudio Guarnieri'
 __version__ = '1.0.0'
 
-import json
 from blockade.api import Client
 
 
@@ -20,6 +19,27 @@ class EventsClient(Client):
         """Get events from the cloud node."""
         to_send = {'limit': 50}
         response = self._send_data('GET', 'admin', 'get-events', to_send)
-        loaded = json.loads(response.content)
-        output = {'events': loaded}
+
+        output = {'message': ""}
+        for event in response['events']:
+            desc = "Event from IP: {ip}\n"
+            desc += "Date and time: {time}\n"
+            desc += "Match: {match}\n"
+            desc += "URL: {url}\n"
+            desc += "User-Agent: {userAgent}\n"
+            desc += "\n"
+            output['message'] += desc.format(**event)
+
+        return output
+
+    def flush_events(self):
+        """Flush events from the cloud node."""
+        response = self._send_data('DELETE', 'admin', 'flush-events', {})
+
+        if response['success']:
+            msg = "Events flushed"
+        else:
+            msg = "Flushing of events failed"
+        output = {'message': msg}
+
         return output
