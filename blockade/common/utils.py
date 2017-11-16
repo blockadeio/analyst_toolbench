@@ -1,6 +1,5 @@
 """Common utilities shared across all libraries."""
 
-import re
 
 def clean_indicators(indicators):
     """Remove any extra details from indicators."""
@@ -17,25 +16,26 @@ def clean_indicators(indicators):
     output = list(set(output))
     return output
 
+
 def is_hashed(value):
+    """Identify if a value appears hashed using regex."""
+    import re
     return re.search(r"^([a-fA-F\d]{32})$", value)
+
 
 def hash_values(values, alg="md5"):
     """Hash a list of values."""
     import hashlib
-
     if alg not in ['md5', 'sha1', 'sha256']:
         raise Exception("Invalid hashing algorithm!")
 
     hasher = getattr(hashlib, alg)
-
     if type(values) == str:
         output = hasher(values).hexdigest()
     elif type(values) == list:
         output = list()
         for item in values:
             output.append(hasher(item).hexdigest())
-
     return output
 
 

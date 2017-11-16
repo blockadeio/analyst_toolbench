@@ -19,7 +19,7 @@ class IndicatorClient(Client):
         """Setup the primary client instance."""
         super(IndicatorClient, self).__init__(*args, **kwargs)
 
-    def add_indicators(self, indicators=list(), private=False, tags=""):
+    def add_indicators(self, indicators=list(), private=False, tags=list()):
         """Add indicators to the remote instance."""
         if len(indicators) == 0:
             raise Exception("No indicators were identified.")
@@ -42,27 +42,18 @@ class IndicatorClient(Client):
         mesg = "{} indicators found, making {} requests"
         self.logger.debug(mesg.format(len(indicators), request_count))
 
-        # If the user asked for IOCs to be submitted privately, we send only
-        # the hashed values.
         if private:
-            indicators_to_submit = hashed
-        # Otherwise, we send the IOCs in clear.
-        else:
-            indicators_to_submit = indicators
+            indicators = hashed
 
-        # If the user provided some tags, we make sure to parse them.
-        if tags:
+        if type(tags) == str:
             tags = [t.strip().lower() for t in tags.split(',')]
-        else:
-            tags = []
 
         start, end = (0, 100)
         for i, idx in enumerate(range(0, request_count)):
             if idx > 0:
                 time.sleep(3)  # Ensure we never trip the limit
                 self.logger.debug("Waiting 3 seconds before next request.")
-            to_send = {'indicators': indicators_to_submit[start:end],
-                'tags': tags}
+            to_send = {'indicators': indicators[start:end], 'tags': tags}
             r = self._send_data('POST', 'admin', 'add-indicators', to_send)
             start, end = (end, end + 100)
             if not r['success']:
@@ -70,7 +61,6 @@ class IndicatorClient(Client):
                 continue
             stats['success'] += 1
             stats['written'] += r['writeCount']
-            # Add items to cache, hashed or not.
             cache_items(to_send['indicators'])
         msg = ""
         msg += "{written} indicators written using {requests} requests: "
@@ -79,7 +69,7 @@ class IndicatorClient(Client):
         return stats
 
     def get_indicators(self):
-        """List indicators available on the remote instance"""
+        """List indicators available on the remote instance."""
         response = self._get('', 'get-indicators')
         response['message'] = "%i indicators:\n%s" % (
             len(response['indicators']),

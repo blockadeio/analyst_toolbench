@@ -19,12 +19,12 @@ def process_ioc(args):
         response = client.get_indicators()
     elif args.single:
         response = client.add_indicators(indicators=[args.single],
-            private=args.private, tags=args.tags)
+                                         private=args.private, tags=args.tags)
     else:
         if not os.path.isfile(args.file):
             raise Exception("File path isn't valid!")
 
-        indicators = []
+        indicators = list()
         with open(args.file, 'r') as handle:
             for line in handle:
                 line = line.strip()
@@ -33,7 +33,7 @@ def process_ioc(args):
                 indicators.append(line)
 
         response = client.add_indicators(indicators=indicators,
-            private=args.private, tags=args.tags)
+                                         private=args.private, tags=args.tags)
 
     return response
 
