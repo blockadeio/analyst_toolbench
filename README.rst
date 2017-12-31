@@ -1,17 +1,12 @@
 Blockade Analyst Bench
 ======================
 
-.. image:: https://img.shields.io/pypi/dm/blockade-toolkit.svg
-    :target: https://pypi.python.org/pypi/blockade-toolkit/
-
 .. image:: https://img.shields.io/pypi/v/blockade-toolkit.svg
    :target: https://pypi.python.org/pypi/blockade-toolkit
 
 .. image:: https://img.shields.io/pypi/l/blockade-toolkit.svg
     :target: https://pypi.python.org/pypi/blockade-toolkit/
 
-Introduction
-------------
 
 *Python client for Blockade.io services*
 
@@ -22,7 +17,8 @@ The following command line scripts are installed with the library:
 
 - **blockade-cfg**: utility to set or query API configuration options for the
   library (email and API key).
-- **blockade**: primary client to interface with the blockade backend services.
+- **blockade-aws-deploy**: utility to set automatically deploy a Blockade cloud node within Amazon Web Services.
+- **blockade**: primary client to interface with the blockade back-end services.
 
 See the *Usage* section for getting started or our wiki_ for more information.
 
@@ -39,7 +35,7 @@ Or from PyPI::
 
     $ pip install blockade-toolkit [--upgrade]
 
-The package depends on the `requests`, `grequests` and `tldextract`. If these are not present, they will be installed.
+The package depends on several external libraries. If these are not present, they will be installed automatically. A ``requirements.txt`` file is included in the repository which outlines these dependencies in detail.
 
 Setup
 -----
@@ -73,17 +69,6 @@ For example::
 
     optional arguments:
       -h, --help  show this help message and exit
-
-Every sub-command has further help options:::
-
-    $ blockade ios -h
-    usage: blockade ioc [-h] [--single SINGLE] [--file FILE]
-
-    optional arguments:
-      -h, --help            show this help message and exit
-      --single SINGLE, -s SINGLE
-                            Send a single IOC
-      --file FILE, -f FILE  Parse a file of IOCs
 
 Support
 -------

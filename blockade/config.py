@@ -1,8 +1,5 @@
 #!/usr/bin/env python
 """Module to load and process local configurations."""
-__author__ = 'Brandon Dixon'
-__version__ = '1.0.0'
-
 import json
 import os
 import sys
@@ -13,6 +10,7 @@ CONFIG_PATH = os.path.expanduser('~/.config/blockade')
 CONFIG_FILE = os.path.join(CONFIG_PATH, 'api_config.json')
 CONFIG_DEFAULTS = {'api_server': 'api.blockade.io', 'api_key': '',
                    'email': '', 'whitelist_date': ''}
+
 
 
 class Config(object):

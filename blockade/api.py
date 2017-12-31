@@ -1,8 +1,5 @@
 #!/usr/bin/env python
 """Abstraction over the Blockade.io admin API."""
-__author__ = 'Brandon Dixon'
-__version__ = '1.0.0'
-
 import json
 import requests
 from blockade.config import Config
@@ -28,7 +25,11 @@ class Client(object):
         :param str https_proxy: HTTPS proxy to use (optional)
         """
         self.logger = get_logger('blockade-request')
-        self.api_base = 'https://%s' % (server)
+        if server.endswith('/'):
+            server = server.rstrip('/')
+        self.api_base = server
+        if server[0:4].lower() != 'http':
+            self.api_base = 'https://%s' % (server)
         self.email = email
         self.api_key = api_key
         self.headers = {

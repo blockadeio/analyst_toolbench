@@ -1,8 +1,5 @@
 #!/usr/bin/env python
 """Client to interact with blockade."""
-__author__ = 'Brandon Dixon'
-__version__ = '1.0.0'
-
 import sys
 import os.path
 from argparse import ArgumentParser
@@ -57,13 +54,20 @@ def main():
     ioc = subs.add_parser('ioc', help="Perform actions with IOCs")
     ioc.add_argument('--single', '-s', help="Send a single IOC")
     ioc.add_argument('--file', '-f', help="Parse a file of IOCs")
-    ioc.add_argument('--private', '-p', action="store_true", help="Submit the IOCs to the node hashed, instead of in clear")
-    ioc.add_argument('--tags', '-t', help="Add a comma-separated list of tags to store with the indicators")
-    ioc.add_argument('--get', '-g', action="store_true", help="List indicators on the remote node")
+    ioc.add_argument('--private', '-p', action="store_true",
+                     help="Submit the IOCs to the node hashed, \
+                     instead of in clear")
+    ioc.add_argument('--tags', '-t',
+                     help="Add a comma-separated list of tags to store \
+                     with the indicators")
+    ioc.add_argument('--get', '-g', action="store_true",
+                     help="List indicators on the remote node")
 
     events = subs.add_parser('events', help="Perform actions with Events")
-    events.add_argument('--get', '-g', action='store_true', help="Get recent events")
-    events.add_argument('--flush', '-f', action='store_true', help="Flush all events from cloud node")
+    events.add_argument('--get', '-g', action='store_true',
+                        help="Get recent events")
+    events.add_argument('--flush', '-f', action='store_true',
+                        help="Flush all events from cloud node")
 
     args, unknown = parser.parse_known_args()
 
@@ -88,7 +92,8 @@ def main():
         sys.stderr.write('{}\n'.format(str(e)))
         sys.exit(1)
 
-    print response['message']
+    print(response.get('message', ''))
+
 
 if __name__ == "__main__":
     main()
