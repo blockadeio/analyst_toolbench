@@ -921,6 +921,8 @@ def main():
             print("Blockade Admin: %s" % loaded['email'])
             print("Blockade API Key: %s" % loaded['api_key'])
             print("---------------------------------------------------------------------------")
+            print("Quick Config: blockade-cfg setup %s %s --api-node=%s"
+                  % (loaded['email'], loaded['api_key'], api_node))
             print("Next steps: Add indicators to your node with our analyst toolbench: %s" % (ANALYST_TOOLBENCH))
             print("For more documentation on other cloud node actions, see %s." % (CLOUD_NODE_DOCS))
 
