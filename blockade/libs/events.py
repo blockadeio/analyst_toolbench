@@ -18,15 +18,22 @@ class EventsClient(Client):
     def get_events(self):
         """Get events from the cloud node."""
         to_send = {'limit': 50}
-        response = self._send_data('GET', 'admin', 'get-events', to_send)
+        response = self._send_data('POST', 'admin', 'get-events', to_send)
 
         output = {'message': ""}
         for event in response['events']:
-            desc = "Event from IP: {ip}\n"
-            desc += "Date and time: {time}\n"
-            desc += "Match: {match}\n"
+            event['url'] = event['metadata']['url']
+            event['method'] = event['metadata']['method']
+            event['type'] = event['metadata']['type']
+
+            desc = "Source IP: {sourceIp}\n"
+            desc += "Datetime: {analysisTime}\n"
+            desc += "Indicator: {indicatorMatch}\n"
+            desc += "Method: {method}\n"
             desc += "URL: {url}\n"
+            desc += "Request Type: {type}\n"
             desc += "User-Agent: {userAgent}\n"
+            desc += "Contact: {contact}\n"
             desc += "\n"
             output['message'] += desc.format(**event)
 

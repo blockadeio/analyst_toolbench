@@ -145,7 +145,8 @@ class Client(object):
                   'verify': self.verify, 'data': data}
         if self.proxies:
             kwargs['proxies'] = self.proxies
-        self.logger.debug("Requesting: %s, %s" % (api_url, str(kwargs)))
+        self.logger.debug("Requesting: %s %s, %s" % (method, api_url,
+                                                     str(kwargs)))
         response = requests.request(method, api_url, **kwargs)
         self.logger.debug("Response: %d, %s" % (response.status_code,
                                                 response.content))

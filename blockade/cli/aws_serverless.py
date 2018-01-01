@@ -73,7 +73,8 @@ DYNAMODB_SCHEMAS = {
     }
 }
 LAMBDA_FUNCTIONS = ['Blockade-Get-Indicators', 'Blockade-Add-Indicators',
-                    'Blockade-Store-Events', 'Blockade-Add-User']
+                    'Blockade-Store-Events', 'Blockade-Add-User',
+                    'Blockade-Get-Events']
 LAMBDA_SCHEMA = {
     'Blockade-Get-Indicators': {
         'FunctionName': 'Blockade-Get-Indicators',
@@ -116,10 +117,22 @@ LAMBDA_SCHEMA = {
                 'people': 'blockade_users'
             }
         }
+    },
+    'Blockade-Get-Events': {
+        'FunctionName': 'Blockade-Get-Events',
+        'Description': 'Get events from the Blockade database',
+        'Handler': 'Blockade-Get-Events.lambda_handler',
+        'Environment': {
+            'Variables': {
+                'people': 'blockade_users',
+                'database': 'blockade_events'
+            }
+        }
     }
 }
 API_GATEWAY_RESOURCES = ['Blockade-Get-Indicators', 'Blockade-Store-Events',
-                         'Blockade-Add-Indicators', 'Blockade-Add-User']
+                         'Blockade-Add-Indicators', 'Blockade-Add-User',
+                         'Blockade-Get-Events']
 API_GATEWAY_RESOURCE_SCHEMA = {
     'Blockade-Get-Indicators': {
         'admin': False,
@@ -176,6 +189,23 @@ API_GATEWAY_RESOURCE_SCHEMA = {
         'admin': True,
         'resource': {
             'path': 'add-user',
+            'method': 'POST'
+        },
+        'request': {
+            'template': {
+                'application/json': ''
+            }
+        },
+        'response': {
+            'template': {
+                'application/json': ''
+            }
+        }
+    },
+    'Blockade-Get-Events': {
+        'admin': True,
+        'resource': {
+            'path': 'get-events',
             'method': 'POST'
         },
         'request': {
