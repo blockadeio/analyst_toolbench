@@ -4,7 +4,7 @@ from setuptools import setup, find_packages
 
 setup(
     name='blockade-toolkit',
-    version='1.0.2',
+    version='1.1.0',
     description='Analyst client for administering Blockade.io',
     url="https://github.com/blockadeio/analyst_toolbench",
     author="Brandon Dixon",
@@ -14,7 +14,14 @@ setup(
     install_requires=['requests', 'ez_setup', 'future', 'grequests',
                       'tldextract', 'boto3'],
     long_description="Blockade brings antivirus-like capabilities to users who run the Chrome browser. Built as an extension, Blockade blocks malicious resources from being viewed or loaded inside of the browser.",
-    classifiers=[],
+    classifiers=[
+        'Development Status :: 4 - Beta',
+        'Intended Audience :: Developers',
+        'License :: OSI Approved :: GNU General Public License v2 (GPLv2)',
+        'Natural Language :: English',
+        'Programming Language :: Python',
+        'Topic :: Software Development :: Libraries'
+    ],
     entry_points={
         'console_scripts': [
             'blockade-cfg = blockade.cli.config:main',
