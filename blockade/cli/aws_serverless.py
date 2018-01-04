@@ -22,7 +22,10 @@ PRIMARY_REGION = "us-west-1"
 BLOCKADE_USER = "blockade"
 BLOCKADE_ROLE = "Blockade_Maintainer"
 BLOCKADE_GROUP = "Blockade_Admins"
+S3_BUCKET_ID = "%d%d" % (random.randint(10000, 99999),
+                         random.randint(10000, 99999))
 S3_BUCKET_NAME = "blockade-records"
+S3_BUCKET = '-'.join([S3_BUCKET_NAME, S3_BUCKET_ID])
 ANALYST_TOOLBENCH = "https://github.com/blockadeio/analyst_toolbench"
 CLOUD_NODE_DOCS = "https://github.com/blockadeio/cloud_node"
 API_GATEWAY = 'Blockade_API'
@@ -104,7 +107,7 @@ LAMBDA_SCHEMA = {
         'Environment': {
             'Variables': {
                 'database': 'blockade_events',
-                's3_bucket': S3_BUCKET_NAME
+                's3_bucket': S3_BUCKET
             }
         }
     },
@@ -517,13 +520,13 @@ def generate_s3_bucket():
     client = boto3.client("s3", region_name=PRIMARY_REGION)
     buckets = client.list_buckets()
     matches = [x for x in buckets.get('Buckets', list())
-               if x['Name'] == S3_BUCKET_NAME]
+               if x['Name'].startswith(S3_BUCKET_NAME)]
     if len(matches) > 0:
         logger.debug("[*] Bucket already exists")
         return matches.pop()
 
     response = client.create_bucket(
-        Bucket=S3_BUCKET_NAME,
+        Bucket=S3_BUCKET,
         CreateBucketConfiguration={
             'LocationConstraint': PRIMARY_REGION
         }
@@ -537,9 +540,13 @@ def remove_s3_bucket():
     """Remove the Blockade bucket."""
     logger.debug("[#] Removing S3 bucket")
     client = boto3.client("s3", region_name=PRIMARY_REGION)
+    buckets = client.list_buckets()
+    matches = [x for x in buckets.get('Buckets', list())
+               if x['Name'].startswith(S3_BUCKET_NAME)]
+    match = matches.pop()['Name']
     try:
         response = client.list_objects_v2(
-            Bucket=S3_BUCKET_NAME,
+            Bucket=match,
         )
     except client.exceptions.NoSuchBucket:
         logger.info("[!] S3 bucket already deleted")
@@ -547,20 +554,20 @@ def remove_s3_bucket():
 
     while response['KeyCount'] > 0:
         logger.debug('[*] Deleting %d objects from bucket %s'
-                     % (len(response['Contents']), S3_BUCKET_NAME))
+                     % (len(response['Contents']), match))
         response = client.delete_objects(
-            Bucket=S3_BUCKET_NAME,
+            Bucket=match,
             Delete={
                 'Objects': [{'Key': obj['Key']} for obj in response['Contents']]
             }
         )
         response = client.list_objects_v2(
-            Bucket=S3_BUCKET_NAME,
+            Bucket=match,
         )
 
-    logger.debug('[#] Deleting bucket %s' % S3_BUCKET_NAME)
+    logger.debug('[#] Deleting bucket %s' % match)
     response = client.delete_bucket(
-        Bucket=S3_BUCKET_NAME
+        Bucket=match
     )
     logger.info("[#] Successfully deleted the S3 bucket")
 
