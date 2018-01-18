@@ -367,8 +367,8 @@ POLICIES = {
                     "s3:DeleteBucket"\
                 ],\
                 "Resource": [\
-                    "arn:aws:s3:::blockade-records/*",\
-                    "arn:aws:s3:::blockade-records"\
+                    "arn:aws:s3:::%s/*",\
+                    "arn:aws:s3:::%s"\
                 ]\
             },\
             {\
@@ -381,7 +381,7 @@ POLICIES = {
                 "Resource": "*"\
             }\
         ]\
-    }'
+    }' % (S3_BUCKET, S3_BUCKET)
 }
 
 
