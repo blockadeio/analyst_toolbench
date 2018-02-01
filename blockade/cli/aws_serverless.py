@@ -6,6 +6,7 @@ import os
 import random
 import requests
 import sys
+import time
 from argparse import ArgumentParser
 from builtins import input
 
@@ -477,6 +478,32 @@ def remove_handler():
     except client.exceptions.NoSuchEntityException:
         logger.debug("[!] Blockade user already removed from group")
 
+    for label in BLOCKADE_POLICIES + ['PushToCloud', 'APIGatewayAdmin']:
+        logger.debug("[#] Removing %s policy" % (label))
+        arn = 'arn:aws:iam::{id}:policy/{policy}'.format(id=account_id,
+                                                         policy=label)
+        if label == 'PushToCloud':
+            arn = "arn:aws:iam::aws:policy/service-role/AmazonAPIGatewayPushToCloudWatchLogs"
+        if label == 'APIGatewayAdmin':
+            arn = "arn:aws:iam::aws:policy/AmazonAPIGatewayAdministrator"
+
+        try:
+            response = client.detach_group_policy(
+                GroupName=BLOCKADE_GROUP, PolicyArn=arn)
+        except:
+            pass
+        try:
+            response = client.detach_role_policy(
+                RoleName=BLOCKADE_ROLE, PolicyArn=arn)
+        except:
+            pass
+        try:
+            response = client.delete_policy(PolicyArn=arn)
+        except Exception as e:
+            print(e)
+            pass
+    logger.debug("[#] Removed all policies")
+
     try:
         logger.debug("[#] Deleting %s user" % (BLOCKADE_USER))
         response = client.delete_user(
@@ -484,20 +511,6 @@ def remove_handler():
         )
     except client.exceptions.NoSuchEntityException:
         logger.debug("[!] %s user already deleted" % (BLOCKADE_USER))
-
-    for label in BLOCKADE_POLICIES:
-        logger.debug("[#] Removing %s policy" % (label))
-        arn = 'arn:aws:iam::{id}:policy/{policy}'.format(id=account_id,
-                                                         policy=label)
-        try:
-            response = client.detach_group_policy(
-                GroupName=BLOCKADE_GROUP, PolicyArn=arn)
-            response = client.detach_role_policy(
-                RoleName=BLOCKADE_GROUP, PolicyArn=arn)
-            response = client.delete_policy(PolicyArn=arn)
-        except:
-            pass
-    logger.debug("[#] Removed all policies")
 
     try:
         logger.debug("[#] Removing %s group" % (BLOCKADE_GROUP))
@@ -520,7 +533,7 @@ def generate_s3_bucket():
     client = boto3.client("s3", region_name=PRIMARY_REGION)
     buckets = client.list_buckets()
     matches = [x for x in buckets.get('Buckets', list())
-               if x['Name'].startswith(S3_BUCKET_NAME)]
+               if x['Name'].startswith(S3_BUCKET)]
     if len(matches) > 0:
         logger.debug("[*] Bucket already exists")
         return matches.pop()
@@ -543,6 +556,8 @@ def remove_s3_bucket():
     buckets = client.list_buckets()
     matches = [x for x in buckets.get('Buckets', list())
                if x['Name'].startswith(S3_BUCKET_NAME)]
+    if len(matches) == 0:
+        return
     match = matches.pop()['Name']
     try:
         response = client.list_objects_v2(
@@ -883,15 +898,20 @@ def main():
                               help='Run in debug mode')
     args = parser.parse_args()
 
-    if args.region not in SUPPORTED_REGIONS:
-        raise Exception("INVALID_REGION: Region must be one of: %s"
-                        % (', '.join(SUPPORTED_REGIONS)))
+    if args.region:
+        if args.region not in SUPPORTED_REGIONS:
+            raise Exception("INVALID_REGION: Region must be one of: %s"
+                            % (', '.join(SUPPORTED_REGIONS)))
+        global PRIMARY_REGION
+        PRIMARY_REGION = args.region
+
     if args.debug:
         logger.setLevel(logging.DEBUG)
 
     if args.cmd == 'setup':
         try:
             generate_handler()
+            time.sleep(7)
             generate_s3_bucket()
             generate_dynamodb_tables()
             generate_lambda_functions()
@@ -923,6 +943,7 @@ def main():
                                      headers=headers)
             loaded = json.loads(response.content)
             logger.info("[#] Successfully added Blockade admin")
+            logger.debug(loaded)
             print("---------------------------------------------------------------------------")
             print("Blockade Server: %s" % api_node)
             print("Blockade Admin: %s" % loaded['email'])
