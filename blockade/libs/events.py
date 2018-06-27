@@ -22,13 +22,9 @@ class EventsClient(Client):
 
         output = {'message': ""}
         for event in response['events']:
-            event['url'] = event['metadata']['url']
-            event['method'] = event['metadata']['method']
-            event['type'] = event['metadata']['type']
-
-            desc = "Source IP: {sourceIp}\n"
-            desc += "Datetime: {analysisTime}\n"
-            desc += "Indicator: {indicatorMatch}\n"
+            desc = "Source IP: {ip}\n"
+            desc += "Datetime: {time}\n"
+            desc += "Indicator: {match}\n"
             desc += "Method: {method}\n"
             desc += "URL: {url}\n"
             desc += "Request Type: {type}\n"
