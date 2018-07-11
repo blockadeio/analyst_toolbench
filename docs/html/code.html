@@ -1,0 +1,445 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Code Documentation &mdash; blockade-toolkit 0.1.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Exceptions" href="exceptions.html" />
+    <link rel="prev" title="Installation" href="introduction.html" /> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="index.html" class="icon icon-home"> blockade-toolkit
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.1.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="introduction.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="introduction.html#setup">Setup</a></li>
+<li class="toctree-l1"><a class="reference internal" href="introduction.html#usage">Usage</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Code Documentation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#blockade-analyst-bench-interface">Blockade Analyst Bench Interface</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="exceptions.html">Exceptions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changelog.html">Changelog</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">blockade-toolkit</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>Code Documentation</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/code.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="code-documentation">
+<h1>Code Documentation<a class="headerlink" href="#code-documentation" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="blockade-analyst-bench-interface">
+<h2>Blockade Analyst Bench Interface<a class="headerlink" href="#blockade-analyst-bench-interface" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="blockade.api.Client">
+<em class="property">class </em><code class="descclassname">blockade.api.</code><code class="descname">Client</code><span class="sig-paren">(</span><em>email</em>, <em>api_key</em>, <em>server='api.blockade.io'</em>, <em>http_proxy=None</em>, <em>https_proxy=None</em>, <em>verify=True</em>, <em>headers=None</em>, <em>debug=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/blockade/api.html#Client"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#blockade.api.Client" title="Permalink to this definition">¶</a></dt>
+<dd><p>Base client that all data sources will inherit from.</p>
+<dl class="method">
+<dt id="blockade.api.Client._endpoint">
+<code class="descname">_endpoint</code><span class="sig-paren">(</span><em>endpoint</em>, <em>action</em>, <em>*url_args</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/blockade/api.html#Client._endpoint"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#blockade.api.Client._endpoint" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the URL for the action.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>endpoint</strong> (<em>str</em>) – The controller</li>
+<li><strong>action</strong> (<em>str</em>) – The action provided by the controller</li>
+<li><strong>url_args</strong> – Additional endpoints(for endpoints that take part of
+the url as option)</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">Full URL for the requested action</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="blockade.api.Client._get">
+<code class="descname">_get</code><span class="sig-paren">(</span><em>endpoint</em>, <em>action</em>, <em>*url_args</em>, <em>**url_params</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/blockade/api.html#Client._get"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#blockade.api.Client._get" title="Permalink to this definition">¶</a></dt>
+<dd><p>Request API Endpoint - for GET methods.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>endpoint</strong> (<em>str</em>) – Endpoint</li>
+<li><strong>action</strong> (<em>str</em>) – Endpoint Action</li>
+<li><strong>url_args</strong> – Additional endpoints(for endpoints that take part of
+the url as option)</li>
+<li><strong>url_params</strong> – Parameters to pass to url, typically query string</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">response deserialized from JSON</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="blockade.api.Client._json">
+<code class="descname">_json</code><span class="sig-paren">(</span><em>response</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/blockade/api.html#Client._json"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#blockade.api.Client._json" title="Permalink to this definition">¶</a></dt>
+<dd><p>JSON response from server.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>response</strong> – Response from the server</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">Throws ValueError:</th></tr>
+<tr class="field-even field"><td>&#160;</td><td class="field-body">from requests’ response.json() error</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">response deserialized from JSON</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="blockade.api.Client._send_data">
+<code class="descname">_send_data</code><span class="sig-paren">(</span><em>method</em>, <em>endpoint</em>, <em>action</em>, <em>data</em>, <em>*url_args</em>, <em>**url_params</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/blockade/api.html#Client._send_data"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#blockade.api.Client._send_data" title="Permalink to this definition">¶</a></dt>
+<dd><p>Submit to API Endpoint - for DELETE, PUT, POST methods.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>method</strong> (<em>str</em>) – Method to use for the request</li>
+<li><strong>endpoint</strong> (<em>str</em>) – Endpoint</li>
+<li><strong>action</strong> (<em>str</em>) – Endpoint Action</li>
+<li><strong>url_args</strong> – Additional endpoints(for endpoints that take part of
+the url as option)</li>
+<li><strong>url_params</strong> – Parameters to pass to url, typically query string</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">response deserialized from JSON</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="classmethod">
+<dt id="blockade.api.Client.from_config">
+<em class="property">classmethod </em><code class="descname">from_config</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/blockade/api.html#Client.from_config"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#blockade.api.Client.from_config" title="Permalink to this definition">¶</a></dt>
+<dd><p>Method to return back a loaded instance.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="blockade.api.Client.set_debug">
+<code class="descname">set_debug</code><span class="sig-paren">(</span><em>status</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/blockade/api.html#Client.set_debug"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#blockade.api.Client.set_debug" title="Permalink to this definition">¶</a></dt>
+<dd><p>Control the logging state.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="blockade.config.Config">
+<em class="property">class </em><code class="descclassname">blockade.config.</code><code class="descname">Config</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/blockade/config.html#Config"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#blockade.config.Config" title="Permalink to this definition">¶</a></dt>
+<dd><p>Manage configuration to ease library use.</p>
+<dl class="method">
+<dt id="blockade.config.Config.get">
+<code class="descname">get</code><span class="sig-paren">(</span><em>item</em>, <em>default=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/blockade/config.html#Config.get"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#blockade.config.Config.get" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get details from the configuration.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>item</strong> (<em>str</em>) – Key used for search</li>
+<li><strong>default</strong> – Default value if search misses</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">Configuration value</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="blockade.config.Config.load_config">
+<code class="descname">load_config</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/blockade/config.html#Config.load_config"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#blockade.config.Config.load_config" title="Permalink to this definition">¶</a></dt>
+<dd><p>Load the configuration for the user or seed it with defaults.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">Boolean if successful</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="blockade.config.Config.options">
+<code class="descname">options</code><a class="headerlink" href="#blockade.config.Config.options" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return configuration option data.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">Dict of configuration keys</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="blockade.config.Config.write_config">
+<code class="descname">write_config</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/blockade/config.html#Config.write_config"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#blockade.config.Config.write_config" title="Permalink to this definition">¶</a></dt>
+<dd><p>Write the configuration to a local file.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">Boolean if successful</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="blockade.libs.events.EventsClient">
+<em class="property">class </em><code class="descclassname">blockade.libs.events.</code><code class="descname">EventsClient</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/blockade/libs/events.html#EventsClient"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#blockade.libs.events.EventsClient" title="Permalink to this definition">¶</a></dt>
+<dd><p>Client to interface with events for blockade.</p>
+<dl class="method">
+<dt id="blockade.libs.events.EventsClient.flush_events">
+<code class="descname">flush_events</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/blockade/libs/events.html#EventsClient.flush_events"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#blockade.libs.events.EventsClient.flush_events" title="Permalink to this definition">¶</a></dt>
+<dd><p>Flush events from the cloud node.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="blockade.libs.events.EventsClient.get_events">
+<code class="descname">get_events</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/blockade/libs/events.html#EventsClient.get_events"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#blockade.libs.events.EventsClient.get_events" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get events from the cloud node.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="blockade.libs.indicators.IndicatorClient">
+<em class="property">class </em><code class="descclassname">blockade.libs.indicators.</code><code class="descname">IndicatorClient</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/blockade/libs/indicators.html#IndicatorClient"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#blockade.libs.indicators.IndicatorClient" title="Permalink to this definition">¶</a></dt>
+<dd><p>Client to interface with indicators for blockade.</p>
+<dl class="method">
+<dt id="blockade.libs.indicators.IndicatorClient.add_indicators">
+<code class="descname">add_indicators</code><span class="sig-paren">(</span><em>indicators=[]</em>, <em>private=False</em>, <em>tags=[]</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/blockade/libs/indicators.html#IndicatorClient.add_indicators"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#blockade.libs.indicators.IndicatorClient.add_indicators" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add indicators to the remote instance.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="blockade.libs.indicators.IndicatorClient.get_indicators">
+<code class="descname">get_indicators</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/blockade/libs/indicators.html#IndicatorClient.get_indicators"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#blockade.libs.indicators.IndicatorClient.get_indicators" title="Permalink to this definition">¶</a></dt>
+<dd><p>List indicators available on the remote instance.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="exceptions.html" class="btn btn-neutral float-right" title="Exceptions" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="introduction.html" class="btn btn-neutral" title="Installation" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2018, Brandon Dixon.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'0.1.0',
+            LANGUAGE:'None',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+
+  
+
+  <script type="text/javascript" src="_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

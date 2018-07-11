@@ -4,7 +4,7 @@ from setuptools import setup, find_packages
 
 setup(
     name='blockade-toolkit',
-    version='1.1.4',
+    version='1.1.5',
     description='Analyst client for administering Blockade.io',
     url="https://github.com/blockadeio/analyst_toolbench",
     author="Brandon Dixon",
