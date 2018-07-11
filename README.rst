@@ -1,6 +1,9 @@
 Blockade Analyst Bench
 ======================
 
+.. image:: https://readthedocs.org/projects/analyst-toolbench/badge/?version=latest
+    :target: http://analyst-toolbench.readthedocs.io/en/latest/?badge=latest
+    
 .. image:: https://badge.fury.io/py/blockade-toolkit.svg
     :target: https://badge.fury.io/py/blockade-toolkit
 
