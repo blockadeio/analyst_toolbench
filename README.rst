@@ -1,11 +1,11 @@
 Blockade Analyst Bench
 ======================
 
-.. image:: https://img.shields.io/pypi/v/blockade-toolkit.svg
-   :target: https://pypi.python.org/pypi/blockade-toolkit
+.. image:: https://badge.fury.io/py/blockade-toolkit.svg
+    :target: https://badge.fury.io/py/blockade-toolkit
 
-.. image:: https://img.shields.io/pypi/l/blockade-toolkit.svg
-    :target: https://pypi.python.org/pypi/blockade-toolkit/
+.. image:: https://img.shields.io/badge/License-GPL%20v2-blue.svg
+    :target: https://www.gnu.org/licenses/old-licenses/gpl-2.0.en.html
 
 
 *Python client for Blockade.io services*
